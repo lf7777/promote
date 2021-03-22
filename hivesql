@@ -1,0 +1,22 @@
+一. 查 询 语 句 :
+
+    
+    <1> 展示表的所有分区
+
+        show partitions table_name;
+
+    <2> 显示所有函数
+
+        show functions;
+
+    <3> 
+
+
+一. 表 操 作 语 句 :
+
+    
+    <1> 查询数据并写入 table_name 表里
+    
+        insert overtable table table_name partition (dt = '${BIZ_DATE}')
+
+        此处是select语句
