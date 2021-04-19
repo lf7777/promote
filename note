@@ -1,4 +1,344 @@
-一.hive:
+目录 :
+
+    一. Excel
+    二. Mysql
+    三. python
+    四. Hive
+    五. 数据分析师
+    六. 数据架构
+    七. 计算机开发相关
+    八. 互联网
+    九. 英文 
+    10. Mac
+    11. 其他
+
+
+一. Excel
+
+
+    <1> Excel 数字转日期
+
+        =DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))
+
+    <2> 生成随机数
+
+        =rand()
+
+        默认是 0 ~ 1 之间的随机数
+
+        =rand()*100
+
+    <3> 总体方差 : varp(单元格:单元格)
+
+        总体标准差 : stdevp(单元格:单元格)
+
+        样本方差 : var()
+
+        样本标准差 : stdev()
+
+        变异系数(消除量纲影响) : stdevp/mean
+
+    <4> 中位数
+
+        median()
+
+    <5> 众数
+
+        mode()
+
+    <6> 偏度系数
+    
+        skew()
+
+    <7> 峰度系数
+
+        kurt()
+
+    <8> 协方差
+
+        样本 : sample     covariance.s()
+
+        总体 : population covariance.p()
+
+    <9> 看数据分布
+
+        选择数据插入里选择数据透视图 -> 轴 值 均选择该列数据 -> 将值更改为计数 -> 完成
+
+   <10> 相关系数
+
+        correl(array1,array2)
+
+   <11> 拼接两个日期
+
+        =TEXT(A1,"y/m/d-")&"-"&TEXT(B1,"y/m/d")
+
+   <12> 频率分布直方图
+
+        1.需要两列数据 列1 : 用于分段的数 例如 5 10 15 20 25 30
+
+                     列2 : 数据源，并非已经求好的频数，例如 1 22 17 13 25 29 29 30 30 30 11 11 12 12
+
+        2. 数据 > 数据分析 > 直方图 > 输入数据为数据源列，接收区域为分段列，勾选标志(作用是可以带入字段名字)及图标输出
+
+           注意 : 不能选中一整列，要直接选中数据，
+
+   <13> 二项分布概率计算 :
+
+        =BinomDist(success,all_time,p,cul)
+
+        =BinomDist(成功次数，实验次数，成功概率，0概率密度，1累计概率密度)
+
+   <14> 回归方程 :
+
+        散点图，右键点击图中的点添加趋势线，选中显示公式
+
+   <15> skew() 偏度 e
+
+        <0 左偏分布 >0 右偏分布
+
+        kurt() 峰度
+
+        <0 扁平分布 >0 尖峰分布
+
+        在实际分析中，通常将峰度与偏度结合使用，来判断变量的次数分布是否接近正态分布，或与正态分布的差别。
+
+   <16> covariance.p() 总体协方差 后跟.s是样本协方差
+
+        当>0 存在正的线性关系，即正相关，x增大y也增大
+
+        当<0 存在负的线性关系，即负相关，x增大y会减小
+
+        当~=0 x和y之间无线性关系，二者无关系
+
+
+
+二. Mysql 
+
+    
+    <1> to_date() 
+
+        转换为日期格式
+
+    <1>.2 datediff(date1,date2)
+
+        参数1<参数2，负值
+
+        参数1>参数2，正值
+
+    <2> mysql 获取json里的数据
+
+        json_extract(字段,'.$键')
+
+    <3> replace(field,willbe_replace,will_replace)
+
+        mysql 字符串替换
+
+    <4> -e 导出数据
+
+        mysql -hxx -uxx -pxx -e "query statement" db > file 
+
+        　　-h：后面跟的是链接的host（主机）
+
+        　　-u:后面跟的是用户名
+
+        　　-p:后面跟的是密码
+
+        　　db:你要查询的数据库
+
+        　　file:你要写入的文件，绝对路径
+
+        示例 : mysql -h127.0.0.1 -uroot -p123 -e "select * from edu_iclass_areas" test > /Users/zhengcanrui/WORK/test/test.xls
+
+        乱码问题解决 :
+
+        mysql  --default-character-set=gbk -uroot -p   -D open_fusion -e  " select * from table1  "  > /home/apprun/test.xls
+
+        Mac 下乱码 使用--def...=gbk
+        
+    <5> group by case when end
+
+        end 后不能带 字段，但是如果想把group by 后面case when 出来的新字段，添加进select后面，直接在select后加case when ... when 和group by 相同的即可
+
+    <6> ifnull()
+    
+        查询的字段如果有空值，把空值转换为第二个值
+
+        mysql:ifnull(field,为空的话返回这个值)
+
+    <7> where 与 having 的区别
+
+        where 是对表本身进行筛选,约束的数据库里有的东西
+        having是对查询出来的数据进行筛选,约束的查询结果中的东西
+
+        where是一个约束声明，使用where来约束来自数据库的数据；where是在结果返回之前起作用的；where中不能使用聚合函数。
+        having是一个过滤声明；在查询返回结果集以后，对查询结果进行的过滤操作；在having中可以使用聚合函数。
+
+    <8> if函数
+
+        if(条件判断语句，true结果,false结果)
+
+        例如 :
+
+            count(distinct(if(sid>60,sid,null))) 统计sid,false的不会被统计到
+
+    <9> strcmp函数
+
+        strcmp(str,str) or strcmp(field,field) 若是field时，一一比较每行的两个值，返回多个 0 or 1 or -1
+
+        解释 : 若二参数完全相同，返回0
+            
+               若第一个长度小于第二个,返回-1
+             
+               其他情况，均返回1
+
+        比较两个字符串，如果两个字符串相等，则返回0；如果根据当前的排序顺序，第一个参数小于第二个参数，则返回-1，否则返回1。
+
+   <10> 连续3天发生购买的用户(或留存)
+
+        SELECT * FROM ord a JOIN ord b on a.name1=b.name1 and DATEDIFF(
+        b.orderdate,a.orderdate)=1 JOIN ord c on c.name1=b.name1 and 
+        DATEDIFF(c.orderdate,b.orderdate)=1;
+
+   <11> sql中null与‘ ’的区别
+
+            null表示空，用is null判断
+
+            ''表示空字符串，用=''判断
+
+   <12> mysql建表设置字符集
+
+        ; 前添加 character set utf8;
+
+   <13> 排序 MySQL
+
+        order by field desc (注意添加order by 并且注意顺序)
+
+
+
+三. Python 
+
+
+    <1>Series.value_counts()
+
+        统计一列数据中不同数据出现的次数
+
+        a = pd.Series(d21_accident_sw_list).value_counts()
+
+    <2> join
+
+        列表合并为字符串
+
+        a = [1,2,3,4]
+
+        '_'.join(a)
+
+    <3> split
+
+        字符串分割为列表
+
+        a = '1_2_3_4'
+
+        a.split('_',1)  #1为切割一次
+
+    <4> pow()
+
+        python平方函数
+
+        pow(x,y) x的y次方
+
+    <5> factorial
+
+        阶乘函数
+
+        import math 
+
+        math.factorial(3)
+
+    <6> 排序不改变原列表
+
+        sorted([3,2,1])
+
+
+    <7> python 词云分析
+
+        pip install wordcloud
+
+        简单英文词云示例 :
+
+            with open('./note','r') as fr:
+            data = fr.read()
+            import matplotlib.pyplot as plt
+            from wordcloud import WordCloud
+            wordcloud = WordCloud().generate(data)
+            # ？下面这句不知道
+            %pylab inline
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis("off")
+
+<8> Jupyter
+
+#显示所有列
+pd.set_option('display.max_columns', None)
+#显示所有行
+pd.set_option('display.max_rows', None)
+#设置value的显示长度为100，默认为50
+pd.set_option('max_colwidth',100)
+
+#忽略错误
+import warnings
+warnings.filterwarnings('ignore')
+
+    <9> python频率分布柱状图
+
+        # d1 为原数字，a 为与之对应的出新的次数
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        d = pd.read_csv('./1.csv',header=None)
+        d = list(d[0])
+        d1 = list(set(d))
+        a = []
+        for i in d1:
+        a.append(d.count(i))
+        a
+        # 绘制频率分布柱状图
+        plt.bar(d1,a)
+
+   <10> Pearson相关系数
+
+        numpy :
+
+        import numpy as np
+        import pandas as pd
+        pct_chg = pd.Series({'000001.SZ':-1.7391, '000002.SZ':0.6250,'000004.SZ':1.1378,'002600.SZ':0.0000,'000010.SZ':-1.0013})
+        vol = pd.Series({'000001.SZ':249326.31,'000002.SZ':338224.97,'000004.SZ':211876.00,'000010.SZ':222782.00,'002600.SZ':342096.76})
+        pccs = np.corrcoef(pct_chg, vol)
+        print(pccs[0][1])
+
+        # 其中 pd.Series() 里面1.存的是字段，则series的主键则是字段里的键 2.同样也可以使用列表:np.corrcoef([1,2,3],[1,2,3])[0][1]
+
+        scipy :
+
+        import numpy as np
+        import pandas as pd
+        from scipy.stats import pearsonr
+        pct_chg = pd.Series({'000001.SZ':-1.7391, '000002.SZ':0.6250,'000004.SZ':1.1378,'002600.SZ':0.0000,'000010.SZ':-1.0013})
+        vol = pd.Series({'000001.SZ':249326.31,'000002.SZ':338224.97,'000004.SZ':211876.00,'000010.SZ':222782.00,'002600.SZ':342096.76})
+        pccs = pearsonr(pct_chg, vol)
+        print(pccs[0])
+
+   <11> python绘制三维图表
+
+        from mpl_toolkits.mplot3d import Axes3D
+        import matplotlib.pyplot as plt
+        fig = plt.figure()
+        ax = fig.add_subplot(111,projection='3d')
+        ax.plot(d['翡翠饺子'],d['鸡肉'],d['牛肉'],label='parametric curve')
+        ax.legend()
+        plt.show()
+
+
+
+四.hive:
 
 
     <1> 去重计数
@@ -112,390 +452,8 @@
             group_concat(distinct ... desc) ... group by ...
 
 
-二. jupyter-notebook :
 
-#显示所有列
-pd.set_option('display.max_columns', None)
-#显示所有行
-pd.set_option('display.max_rows', None)
-#设置value的显示长度为100，默认为50
-pd.set_option('max_colwidth',100)
-
-#忽略错误
-import warnings
-warnings.filterwarnings('ignore')
-
-
-
-三. Mac :
-
-
-     <1> Mac brew 安装
-
-        https://www.cnblogs.com/x1you/p/12506405.html
-
-    <2> uname -a
-
-        查看操作系统的版本
-
-    <3> 查看文件的版本  
-
-        file 文件
-
-
-
-四. Excel
-
-
-    <1> Excel 数字转日期
-
-        =DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))
-
-    <2> 生成随机数
-
-        =rand()
-
-        默认是 0 ~ 1 之间的随机数
-
-        =rand()*100
-
-    <3> 总体方差 : varp(单元格:单元格)
-
-        总体标准差 : stdevp(单元格:单元格)
-
-        样本方差 : var()
-
-        样本标准差 : stdev()
-
-        变异系数(消除量纲影响) : stdevp/mean
-
-    <4> 中位数
-
-        median()
-
-    <5> 众数
-
-        mode()
-
-    <6> 偏度系数
-    
-        skew()
-
-    <7> 峰度系数
-
-        kurt()
-
-    <8> 协方差
-
-        样本 : sample     covariance.s()
-
-        总体 : population covariance.p()
-
-    <9> 看数据分布
-
-        选择数据插入里选择数据透视图 -> 轴 值 均选择该列数据 -> 将值更改为计数 -> 完成
-
-   <10> 相关系数
-
-        correl(array1,array2)
-
-   <11> 拼接两个日期
-
-        =TEXT(A1,"y/m/d-")&"-"&TEXT(B1,"y/m/d")
-
-   <12> 频率分布直方图
-
-        1.需要两列数据 列1 : 用于分段的数 例如 5 10 15 20 25 30
-
-                     列2 : 数据源，并非已经求好的频数，例如 1 22 17 13 25 29 29 30 30 30 11 11 12 12
-
-        2. 数据 > 数据分析 > 直方图 > 输入数据为数据源列，接收区域为分段列，勾选标志(作用是可以带入字段名字)及图标输出
-
-           注意 : 不能选中一整列，要直接选中数据，
-
-   <13> 二项分布概率计算 :
-
-        =BinomDist(success,all_time,p,cul)
-
-        =BinomDist(成功次数，实验次数，成功概率，0概率密度，1累计概率密度)
-
-   <14> 回归方程 :
-
-        散点图，右键点击图中的点添加趋势线，选中显示公式
-
-
-
-五. Mysql 
-
-    
-    <1> to_date() 
-
-        转换为日期格式
-
-    <1>.2 datediff(date1,date2)
-
-        参数1<参数2，负值
-
-        参数1>参数2，正值
-
-
-    <2> mysql 获取json里的数据
-
-        json_extract(字段,'.$键')
-
-    <3> replace(field,willbe_replace,will_replace)
-
-        mysql 字符串替换
-
-    <4> -e 导出数据
-
-        mysql -hxx -uxx -pxx -e "query statement" db > file 
-
-        　　-h：后面跟的是链接的host（主机）
-
-        　　-u:后面跟的是用户名
-
-        　　-p:后面跟的是密码
-
-        　　db:你要查询的数据库
-
-        　　file:你要写入的文件，绝对路径
-
-        示例 : mysql -h127.0.0.1 -uroot -p123 -e "select * from edu_iclass_areas" test > /Users/zhengcanrui/WORK/test/test.xls
-
-        乱码问题解决 :
-
-        mysql  --default-character-set=gbk -uroot -p   -D open_fusion -e  " select * from table1  "  > /home/apprun/test.xls
-
-        Mac 下乱码 使用--def...=gbk
-        
-    <5> group by case when end
-
-        end 后不能带 字段，但是如果想把group by 后面case when 出来的新字段，添加进select后面，直接在select后加case when ... when 和group by 相同的即可
-
-    <6> ifnull()
-    
-        查询的字段如果有空值，把空值转换为第二个值
-
-        mysql:ifnull(field,为空的话返回这个值)
-
-    <7> where 与 having 的区别
-
-        where 是对表本身进行筛选,约束的数据库里有的东西
-        having是对查询出来的数据进行筛选,约束的查询结果中的东西
-
-        where是一个约束声明，使用where来约束来自数据库的数据；where是在结果返回之前起作用的；where中不能使用聚合函数。
-        having是一个过滤声明；在查询返回结果集以后，对查询结果进行的过滤操作；在having中可以使用聚合函数。
-
-    <8> if函数
-
-        if(条件判断语句，true结果,false结果)
-
-        例如 :
-
-            count(distinct(if(sid>60,sid,null))) 统计sid,false的不会被统计到
-
-    <9> strcmp函数
-
-        strcmp(str,str) or strcmp(field,field) 若是field时，一一比较每行的两个值，返回多个 0 or 1 or -1
-
-        解释 : 若二参数完全相同，返回0
-            
-               若第一个长度小于第二个,返回-1
-             
-               其他情况，均返回1
-
-        比较两个字符串，如果两个字符串相等，则返回0；如果根据当前的排序顺序，第一个参数小于第二个参数，则返回-1，否则返回1。
-
-   <10> 连续3天发生购买的用户(或留存)
-
-        SELECT * FROM ord a JOIN ord b on a.name1=b.name1 and DATEDIFF(
-        b.orderdate,a.orderdate)=1 JOIN ord c on c.name1=b.name1 and 
-        DATEDIFF(c.orderdate,b.orderdate)=1;
-
-   <11> sql中null与‘ ’的区别
-
-            null表示空，用is null判断
-
-            ''表示空字符串，用=''判断
-
-
-
-六. 互联网及数据指标含义 :
-
-    
-    <1> ROI Return On Investment
-
-        投资回报率，利润/成本，回报/成本，即收益占投资的比重,越高越好
-
-        ROI = (收入-成本)/成本
-
-    <2> KPI Key Performance Indicator
-
-        关键绩效指标
-
-    <3> NPS Net Promoter Score
-
-        净推荐值指标 (顾客忠诚度分析指标)
-
-        净促进者得分，亦可称口碑，是一种计量某个客户将会向其他人推荐某个企业或服务可能性的指数。它是最流行的顾客忠诚度分析指标，专注于顾客口碑如何影响企业成长。通过密切跟踪净推荐值，企业可以让自己更加成功。
-
-    <4> UV Unique visitor
-
-        访问人数
-    
-            同个访客多次访问仅计算一个 UV 
-
-        PV Page View
-        
-        访问量
-
-            浏览量 或 点击量
-
-        原理 :
-
-            采集日志数据，后台进行统计去重，展现前端
-
-    <5> DAU
-
-        Daily Active User 日活跃用户数量
-
-        MAU
-
-        Month Active User 月活跃用户数量
-
-    <6> 用户增长
-        
-        拉新 与 留存
-
-        留存 : 监控留存率指标时时动态监控，例如7日前的用户，在第七日是否有使用，用有使用量的除以七日前的那一次的新增用户量
-
-    <7> O2O Online To Offline
-
-        线上到线下
-
-        O2O闭环，用户从线上到线下，最后再回到线上
-        只有这样，O2O才成为真正的O2O，而不是单纯的广告平台或分类信息提供者
-
-    <8> 生命周期
-
-        通常指从产生到消亡的全过程的时间
-
-    <9> MAU
-
-        月活跃用户
-
-
-
-七. IT 名 词 含 义 :
-
-
-    <1> API 
-
-        应用程序编程接口
-
-        接口，通过API交给一个程序，程序返回一个内容
-
-    <2> SDK
-
-        软件开发工具包
-
-        在本地建立程序，内容传入程序中产出内容
-
-    <3> 日志
-
-        操作系统或软件运行时存下来的过程数据
-
-        日志数据就是计算机操作系统、或者有些应用软件在运行时，为了在今后进行系统维护起来比较方便，而将系统、或者应用软件在运行过程中产生的各种数据（通常是：用户名、用户执行的程序名、日期、时间等）写入到一个日志文件中（通常都是以 *.log　结尾）。以便今后系统出故障时可以有据可查。
-
-    <4> kafka
-
-        日志系统
-
-    <5> 灰度测试
-
-        未上线 : 黑
-
-        中间   : 灰
-
-        上线   : 白
-
-    作用 :
-
-        在某项产品或应用正式发布前，选择特定人群试用，逐步扩大其试用者数量，以便及时发现和纠正其中的错误。
-
-        并可以 满足部分用户抢先体验的愿望
-
-        还可以 收集用户体验的数据与指标，获得用户的意见反馈，完善产品功能，提升产品质量。
-
-    步骤 :
-
-        1. 确定目标 
-
-        2. 选择策略
-
-        3. 筛选用户
-
-        4. 部署系统
-
-        5. 发布总结
-
-        6. 产品完善
-
-        7. 新一轮灰度发布或完整发布
-
-
-
-八. 数 据 架 构 :
-
-    
-    DMBS : 数据库管理系统
-
-    星型模型 : 一张事实表，存其他维度表的主键，在维度表中存和事实表相同的主键以及
-
-               主键对应的具体内容 (比如事实表品牌id列,在维度表有一列品牌id,id=1的
-               
-               对应阿迪达斯)
-
-    雪花模型 : 是对星型模型的拓展，维度表不直接与事实表相连，而是连接与事实表连接
-
-               的维度表
-
-    ods > dwd > dws > ads
-
-        ods : 原始数据层 
-        
-              operation data store 
-
-              在业务系统中的最原始数据
-
-              命名规范 : ods_report
-
-        dwd : 明细数据层
-        
-              data warehouse detail
-
-              经过数据清洗后的层级
-              
-              dwd_report 
-
-        dws : 汇总数据层 
-        
-              data warehouse service 
-
-              以分析的主题作为建表驱动，将零散的数据汇总至一张表里
-
-              dws_report
-
-        ads : 个性化数据层
-
-              个性化、定制化、复杂性指标
-
-              ads_report
-
-
-            
-八. 数 据 分 析 师 及 python:
+五. 数 据 分 析 师 :
 
 
     统计师 : 统计数据并更多的了解数据 
@@ -505,7 +463,7 @@ warnings.filterwarnings('ignore')
         
     <1> 数据可用性 
 
-            数据的可用性可以从数据的一致性、准确性、完整性、时效性及实体同一性五个方面进行考察
+        数据的可用性可以从数据的一致性、准确性、完整性、时效性及实体同一性五个方面进行考察
 
             数据的一致性：指数据信息系统中各相关数据信息之间相容、不产生矛盾。
 
@@ -516,7 +474,6 @@ warnings.filterwarnings('ignore')
             数据的时效性：是指在不同需求场景下数据的及时性和有效性。对应用系统而言，往往对数据时效性要求较高，过时的数据即使分析出来了也不会对实际应用产生有价值的影响。
 
             实体的同一性：指同一实体在各种数据源中的描述统一。一个数据集合，满足以上五个性质的程度称为该数据集合的可用性。
-
 
     理解 : 
 
@@ -580,31 +537,15 @@ warnings.filterwarnings('ignore')
 
         certified projects data analyst
 
-    <8> python 词云分析
-
-        pip install wordcloud
-
-        简单英文词云示例 :
-
-            with open('./note','r') as fr:
-            data = fr.read()
-            import matplotlib.pyplot as plt
-            from wordcloud import WordCloud
-            wordcloud = WordCloud().generate(data)
-            # ？下面这句不知道
-            %pylab inline
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis("off")
-
-        简单中文词云示例 :
-
-    <9> VARiance 方差 var
+    <8> VARiance 方差 var
 
         STandard DEViation 标准差stdev
 
         Coefficient of Variation 变异系数 cov   stdev/mean
 
-   <10> skew() 偏度 e
+
+
+    <9> skew() 偏度 e
 
         <0 左偏分布 >0 右偏分布
 
@@ -614,7 +555,7 @@ warnings.filterwarnings('ignore')
 
         在实际分析中，通常将峰度与偏度结合使用，来判断变量的次数分布是否接近正态分布，或与正态分布的差别。
 
-   <11> covariance.p() 总体协方差 后跟.s是样本协方差
+   <10> covariance.p() 总体协方差 后跟.s是样本协方差
 
         当>0 存在正的线性关系，即正相关，x增大y也增大
 
@@ -622,59 +563,11 @@ warnings.filterwarnings('ignore')
 
         当~=0 x和y之间无线性关系，二者无关系
 
-   <12> pp
+   <11> pp
 
         percent point 百分点
 
-   <13> python频率分布柱状图
-
-        # d1 为原数字，a 为与之对应的出新的次数
-        import pandas as pd
-        import matplotlib.pyplot as plt
-        d = pd.read_csv('./1.csv',header=None)
-        d = list(d[0])
-        d1 = list(set(d))
-        a = []
-        for i in d1:
-        a.append(d.count(i))
-        a
-        # 绘制频率分布柱状图
-        plt.bar(d1,a)
-
-   <14> Pearson相关系数
-
-        numpy :
-
-        import numpy as np
-        import pandas as pd
-        pct_chg = pd.Series({'000001.SZ':-1.7391, '000002.SZ':0.6250,'000004.SZ':1.1378,'002600.SZ':0.0000,'000010.SZ':-1.0013})
-        vol = pd.Series({'000001.SZ':249326.31,'000002.SZ':338224.97,'000004.SZ':211876.00,'000010.SZ':222782.00,'002600.SZ':342096.76})
-        pccs = np.corrcoef(pct_chg, vol)
-        print(pccs[0][1])
-
-        # 其中 pd.Series() 里面1.存的是字段，则series的主键则是字段里的键 2.同样也可以使用列表:np.corrcoef([1,2,3],[1,2,3])[0][1]
-
-        scipy :
-
-        import numpy as np
-        import pandas as pd
-        from scipy.stats import pearsonr
-        pct_chg = pd.Series({'000001.SZ':-1.7391, '000002.SZ':0.6250,'000004.SZ':1.1378,'002600.SZ':0.0000,'000010.SZ':-1.0013})
-        vol = pd.Series({'000001.SZ':249326.31,'000002.SZ':338224.97,'000004.SZ':211876.00,'000010.SZ':222782.00,'002600.SZ':342096.76})
-        pccs = pearsonr(pct_chg, vol)
-        print(pccs[0])
-
-   <15> python绘制三维图表
-
-        from mpl_toolkits.mplot3d import Axes3D
-        import matplotlib.pyplot as plt
-        fig = plt.figure()
-        ax = fig.add_subplot(111,projection='3d')
-        ax.plot(d['翡翠饺子'],d['鸡肉'],d['牛肉'],label='parametric curve')
-        ax.legend()
-        plt.show()
-
-   <16> 贡献度分析
+   <12> 贡献度分析
 
         帕累托分析(二八法则)
 
@@ -686,15 +579,162 @@ warnings.filterwarnings('ignore')
 
           1    10   b/sum($盈利)  =sum($c$2,:c2)
 
-   <17> Series.value_counts()
 
-        统计一列数据中不同数据出现的次数
+   <13> ROI Return On Investment
 
-        a = pd.Series(d21_accident_sw_list).value_counts()
+        投资回报率，利润/成本，回报/成本，即收益占投资的比重,越高越好
+
+        ROI = (收入-成本)/成本
+
+   <14> KPI Key Performance Indicator
+
+        关键绩效指标
+
+   <15> NPS Net Promoter Score
+
+        净推荐值指标 (顾客忠诚度分析指标)
+
+        净促进者得分，亦可称口碑，是一种计量某个客户将会向其他人推荐某个企业或服务可能性的指数。它是最流行的顾客忠诚度分析指标，专注于顾客口碑如何影响企业成长。通过密切跟踪净推荐值，企业可以让自己更加成功。
+
+   <16> UV Unique visitor
+
+        访问人数
+    
+            同个访客多次访问仅计算一个 UV 
+
+        PV Page View
+        
+        访问量
+
+            浏览量 或 点击量
+
+        原理 :
+
+            采集日志数据，后台进行统计去重，展现前端
+
+   <17> DAU
+
+        Daily Active User 日活跃用户数量
+
+        MAU
+
+        Month Active User 月活跃用户数量
+
+   <18> 用户增长
+        
+        拉新 与 留存
+
+        留存 : 监控留存率指标时时动态监控，例如7日前的用户，在第七日是否有使用，用有使用量的除以七日前的那一次的新增用户量
+
+   <19> O2O Online To Offline
+
+        线上到线下
+
+        O2O闭环，用户从线上到线下，最后再回到线上
+        只有这样，O2O才成为真正的O2O，而不是单纯的广告平台或分类信息提供者
+
+   <20> 生命周期
+
+        通常指从产生到消亡的全过程的时间
+
+   <21> MAU
+
+        月活跃用户
 
 
 
-九. 互联网职位简称 :
+六. 数 据 架 构 :
+
+    
+    DMBS : 数据库管理系统
+
+    星型模型 : 一张事实表，存其他维度表的主键，在维度表中存和事实表相同的主键以及
+
+               主键对应的具体内容 (比如事实表品牌id列,在维度表有一列品牌id,id=1的
+               
+               对应阿迪达斯)
+
+    雪花模型 : 是对星型模型的拓展，维度表不直接与事实表相连，而是连接与事实表连接
+
+               的维度表
+
+    ods > dwd > dws > ads
+
+        ods : 原始数据层 
+        
+              operation data store 
+
+              在业务系统中的最原始数据
+
+              命名规范 : ods_report
+
+        dwd : 明细数据层
+        
+              data warehouse detail
+
+              经过数据清洗后的层级
+              
+              dwd_report 
+
+        dws : 汇总数据层 
+        
+              data warehouse service 
+
+              以分析的主题作为建表驱动，将零散的数据汇总至一张表里
+
+              dws_report
+
+        ads : 个性化数据层
+
+              个性化、定制化、复杂性指标
+
+              ads_report
+
+
+六. 计算机开发相关 :
+
+
+    <1> API 
+
+        应用程序编程接口
+
+        接口，通过API交给一个程序，程序返回一个内容
+
+    <2> SDK
+
+        软件开发工具包
+
+        在本地建立程序，内容传入程序中产出内容
+
+    <3> 日志
+
+        操作系统或软件运行时存下来的过程数据
+
+        日志数据就是计算机操作系统、或者有些应用软件在运行时，为了在今后进行系统维护起来比较方便，而将系统、或者应用软件在运行过程中产生的各种数据（通常是：用户名、用户执行的程序名、日期、时间等）写入到一个日志文件中（通常都是以 *.log　结尾）。以便今后系统出故障时可以有据可查。
+
+    <4> kafka
+
+        日志系统
+
+    <5> 灰度测试
+
+        未上线 : 黑
+
+        中间   : 灰
+
+        上线   : 白
+
+    作用 :
+
+        在某项产品或应用正式发布前，选择特定人群试用，逐步扩大其试用者数量，以便及时发现和纠正其中的错误。
+
+        并可以 满足部分用户抢先体验的愿望
+
+        还可以 收集用户体验的数据与指标，获得用户的意见反馈，完善产品功能，提升产品质量。
+
+
+
+八. 互联网 :
 
 
     <1> BD 
@@ -734,72 +774,48 @@ warnings.filterwarnings('ignore')
         business partnter 业务合作伙伴(内部数据)
 
 
-十. 其 他 :
 
+九. 英 文 :
 
-    <1> join
+    
+    <1> outliers
 
-        列表合并为字符串
+        异常值
 
-        a = [1,2,3,4]
-
-        '_'.join(a)
-
-    <2> split
-
-        字符串分割为列表
-
-        a = '1_2_3_4'
-
-        a.split('_',1)  #1为切割一次
-
-    <3> insight 
+    <2> insight 
 
         洞察
 
-    <4> 马太效应
+
+
+10. Mac :
+
+
+     <1> Mac brew 安装
+
+        https://www.cnblogs.com/x1you/p/12506405.html
+
+    <2> uname -a
+
+        查看操作系统的版本
+
+    <3> 查看文件的版本  
+
+        file 文件
+
+
+
+11. 其 他 :
+
+
+    <1> 马太效应
 
         指强者愈强、弱者愈弱、好的愈好，坏的愈坏，多的愈多，少的愈少的现象，广泛应用于社会心理学、教育、金融以及科学等众多领域。
 
-    <5> 人次
+    <2> 人次
 
         一个人多次会重复计算，指总次数
 
         人数
 
         一个人不重复计算，指总人数
-
-    <6> pow()
-
-        python平方函数
-
-        pow(x,y) x的y次方
-
-    <7> factorial
-
-        阶乘函数
-
-        import math 
-
-        math.factorial(3)
-
-    <8> 排序不改变原列表
-
-        sorted([3,2,1])
-
-    <9> mysql建表设置字符集
-
-        ; 前添加 character set utf8;
-
-   <10> 排序 MySQL
-
-        order by field desc (注意添加order by 并且注意顺序)
-
-
-
-十一. 英 文 :
-
-    
-    <1> outliers
-
-        异常值
