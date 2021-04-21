@@ -213,6 +213,22 @@
 
         order by field desc (注意添加order by 并且注意顺序)
 
+   <14> count
+
+        count(1),count(field) 不统计Null值
+
+        count(*) 会统计到Null值
+
+   <15> union 
+
+        一个查询语句 但是需要筛选出条件不同的时，用union 与 union all
+
+        union时会去除重复值，union all合并全不值
+ 
+   <16> 遇到group by 问题
+
+        set sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
 
 
 三. Python 
@@ -691,7 +707,7 @@ warnings.filterwarnings('ignore')
               ads_report
 
 
-六. 计算机开发相关 :
+七. 计算机开发相关 :
 
 
     <1> API 
