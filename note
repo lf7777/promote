@@ -125,8 +125,8 @@
 
 
 二. Mysql 
-
     
+
     <1> to_date() 
 
         转换为日期格式
@@ -211,7 +211,7 @@
         b.orderdate,a.orderdate)=1 JOIN ord c on c.name1=b.name1 and 
         DATEDIFF(c.orderdate,b.orderdate)=1;
 
-   <11> sql中null与‘ ’的区别
+   <11> sql中null与‘’的区别
 
             null表示空，用is null判断
 
@@ -235,7 +235,7 @@
 
         一个查询语句 但是需要筛选出条件不同的时，用union 与 union all
 
-        union时会去除重复值，union all合并全不值
+        union时会去除重复值，union all合并不去重
  
    <16> 遇到group by 问题
 
@@ -250,6 +250,27 @@
         当ex1为空时，返回ex2，不为空返回ex1
    
         coalesce(attrs['pub_page_id'],attrs['page_id']) in ('buslinepage','transferpage','stationinfo')
+
+   <19> 窗口函数 
+
+        rank()  rank:等级
+
+        dense_rank() dense rank:密级
+
+        row_number() row number:行号
+
+   <20> cast 类型转换函数
+
+        select cast(datetime as time) from a;
+
+        Cast(字段名 as 转换的类型 )，其中类型可以为：
+
+        CHAR[(N)] 字符型
+        DATE 日期型
+        DATETIME 日期和时间型
+        DECIMAL float型
+        SIGNED int
+        TIME 时间型
 
 
 
@@ -374,6 +395,12 @@ warnings.filterwarnings('ignore')
         ax.legend()
         plt.show()
 
+   <12> 时间区间 pandas 
+
+        dat = pd.date_range(start='1/04/2021', end='16/05/2021', freq='D')
+        
+        freq : 两个时间的间隔，D是一天，M是一个月。
+
 
 
 四.hive
@@ -404,6 +431,8 @@ warnings.filterwarnings('ignore')
         示例 : date_sub(current_date,interval 1 day) 
 
                表向前偏移一天,昨天
+
+        !!!目前证明Hive有效的昨天函数 FROM_UNIXTIME(UNIX_TIMESTAMP())
                 
     <6> date_add 时间向偏移函数
 
@@ -493,6 +522,21 @@ warnings.filterwarnings('ignore')
 
         concat(substr(dt,1,4),'-',substr(dt,5,2),'-',substr(dt,7,2))
 
+   <20> 视图(Hive,Oracle,Sql Server支持，Mysql不支持)
+
+        临时视图表，减少重复sql代码
+   
+        WITH t1 AS (
+                    SELECT *
+                    FROM carinfo
+                    ), 
+             t2 AS (
+                    SELECT *
+                    FROM car_blacklist
+                   )
+       SELECT *
+       FROM t1, t2;
+
 
 
 五_一. 数 据 分 析 
@@ -504,7 +548,7 @@ warnings.filterwarnings('ignore')
 
     在企业中，数据分析师的主要工作是项目的负责人，是以通过数据改进、优化、提升项目为主要工作的职位。
 
-        
+
     <1> 数据可用性 
 
         数据的可用性可以从数据的一致性、准确性、完整性、时效性及实体同一性五个方面进行考察
@@ -555,7 +599,7 @@ warnings.filterwarnings('ignore')
 
         Customer Relationship Management
 
-    <5> RFM 模型
+    <5> RFM 模型 百度可以查搭建方法
 
         Recency(近期)     最近一次消费 
 
@@ -586,8 +630,6 @@ warnings.filterwarnings('ignore')
         STandard DEViation 标准差stdev
 
         Coefficient of Variation 变异系数 cov   stdev/mean
-
-
 
     <9> skew() 偏度 e
 
@@ -622,7 +664,6 @@ warnings.filterwarnings('ignore')
         事物名 盈利 占比          累加
 
           1    10   b/sum($盈利)  =sum($c$2,:c2)
-
 
    <13> ROI Return On Investment
 
@@ -664,11 +705,17 @@ warnings.filterwarnings('ignore')
 
         Month Active User 月活跃用户数量
 
-   <18> 用户增长
+   <18> 用户增长(业务增长方法论)
         
-        拉新 与 留存
+        AARRR模型 : Acquisition Activation Retention Revenue Referral
 
-        留存 : 监控留存率指标时时动态监控，例如7日前的用户，在第七日是否有使用，用有使用量的除以七日前的那一次的新增用户量
+                        获取       激活      留存      变现    推荐
+
+                    获取客户 
+                    提高活跃率(活跃用户数、活跃率、使用时长、启动次数)
+                    次留、周留、月留
+                    获取收入
+                    K-factor(K因子)
 
    <19> O2O Online To Offline
 
@@ -679,17 +726,39 @@ warnings.filterwarnings('ignore')
 
    <20> 生命周期
 
-        通常指从产生到消亡的全过程的时间
+        通常指从产生到消亡的全过程
 
    <21> MAU
 
         月活跃用户
 
-   <22> 分析方法总结 (https://www.sohu.com/a/315867719_120104204):
+   <22> 指标
+   
+        规划数据指标体系的两个模型 :
+
+        OSM : Object 目标
+
+              Strategy 策略 
+
+              Measure 量度
+
+        UJM : User Journey Map 用户旅程地图
+
+
+   <23> 分析思路与方法
+
+      思路 :
+
+        挖掘业务含义 -> 制定分析计划 -> 拆分查询数据 -> 提炼业务洞察 -> 产出商业决策        
+
+
+      方法 :
+   
+        https://www.sohu.com/a/315867719_120104204
 
         1. 拆解主题分析 : 将一个大的主题的事情，拆解为多个子项，例如 : 营销主题，拆解为 客户分析、品类分析、区域分析、消费频率等子项去分析，都是属于营销分析。
 
-        2. 钻取分析 : 上钻，减少维度，生成汇总数据的分析方法。下钻，从汇总数据深入到细节数据进行观察或增加维度。
+        2. 钻取分析 : 上钻，减少维度，生成汇总数据的分析方法。下钻，从汇总数据深入到细节数据进行观察或增加维度。(按组织树钻取，按品类树钻取，按其他维度钻取)
 
         3. 对比分析 : 时间趋势分析、构成分析、同类比较分析、多指标分析(多个指标描述一个事情)、相关性分析、分组分析等。
 
@@ -709,11 +778,35 @@ warnings.filterwarnings('ignore')
 
                               相关性分析。
 
-           (6) 分组分析     : 指将客体（问卷、特征、现实）按研究要求进行分类编组，使得同组客体之间的差别小于各种客体之间的差别，进而进行分析研究的方法。其特点在于不依赖于原始资料分布的正常性假设，可以按任意规律分布，在分析既包括数量资料，又包括质量资料的混合资料时尤为重要。
+           (6) 分组分析     : 将数据根据不同的标签，分为多个组，列举一些指标，指将客体（问卷、特征、现实）按研究要求进行分类编组，使得同组客体之间的差别小于各种客体之间的差别，进而进行分析研究的方法。其特点在于不依赖于原始资料分布的正常性假设，可以按任意规律分布，在分析既包括数量资料，又包括质量资料的混合资料时尤为重要。
 
                               客体 : 被研究的对象。主体 : 主体指实践活动和认识活动的承担者；客体指主体实践活动和认识活动的对象，即同认识主体相对立的外部世界。
 
-   <23> 专项数据分析 :
+           (6) SWOT分析 
+           
+               四象限分析
+
+               优势(Strengths)、劣势(Weaknesses)、机会(Opportunities)、威胁(Threats)
+
+               此思维模式主要用来协助分析者分析特定的对象所处的内部外部环境，分别就上述四个方面加以考量、分析利弊得失，并用来对企业的内外部环境与自身战略的匹配与否进行分析，协助分析者明白自身的得失，找出问题的根源，并设计出相应的战略应对对策。
+
+           (7) 内外因素分析法
+
+                      内部     外部
+
+             可控   立即执行 相关渠道
+
+             不可控 协调沟通 确定假设
+
+           (8) SMART
+
+           (9) 5W2H
+
+           (10)4P理论
+
+           (11)六顶思考帽
+
+   <24> 专题大数据分析 
 
         1. 明确项目分析目标。
         
@@ -722,6 +815,44 @@ warnings.filterwarnings('ignore')
         3. 开始分析，首先对数据进行较为宽泛的解读，然后围绕分析目标进行探索分析。
 
         4. 给出分析结果，并从数据上对未来进行展望。
+
+        例如 :
+
+           (1) 市场购物篮分析
+
+           (2) 重力模型
+
+           (3) 推荐算法
+
+           (4) 客户分组分析
+
+           (5) 价格敏感度分析
+
+   <25> 分析模型
+
+           (1) RCV模型
+
+           (2) 阿米巴经营
+
+           (3) 品类管理
+
+           (4) 海盗模型(AARRR)
+
+   <26> 预测
+
+        1. 费米估计
+
+           核心思想是对目标数值(y)进行拆解，像搭梯子一样一步一步靠近目标目标(不断寻找x来计算y，y是关于x的函数)。
+   
+        2. ARIMA 预测
+
+        ARIMA模型（英语：Autoregressive Integrated Moving Average model），差分整合移动平均自回归模型，又称整合移动平均自回归模型（移动也可称作滑动），是时间序列预测分析方法之一。ARIMA(p，d，q)中，AR是“自回归”，p为自回归项数；MA为“滑动平均”，q为滑动平均项数，d为使之成为平稳序列所做的差分次数（阶数）。“差分”一词虽未出现在ARIMA的英文名称中，却是关键步骤。
+
+   <26> 相对值
+
+        (相对大的-相对基础)/相对基础 
+
+        观察一个数值相对另一个数值的偏离程度，通过使用相对值，得到变化程度，在图表中直接展示该程度，即展示了偏离程度。(x轴用日期，y轴百分比)
 
 
 
@@ -845,6 +976,8 @@ warnings.filterwarnings('ignore')
 
         研发工程师
 
+        开发分工程与策略，工程搭建技术框架，提供服务。策略迭代算法。
+
     <3> SDET
 
         软件测试开发工程师
@@ -874,6 +1007,12 @@ warnings.filterwarnings('ignore')
         PRD : PRD是产品需求文档，描述了该产品的大方向。 - 产品大方向
 
         DRD : DRD是交互设计文档，用来承载交互说明，并交付给前端、测试以及开发工程师参考的文档。- 产品细节
+
+    <8> B端 与 C端 
+
+        Consumer 个人用户端  To C
+
+        Business 商家用户端  To B
 
 
 
@@ -920,12 +1059,22 @@ warnings.filterwarnings('ignore')
 
     <2> 人次
 
-        一个人多次会重复计算，指总次数
+        一个人多次会重复计算，按次数计算
 
         人数
 
-        一个人不重复计算，指总人数
+        一个人不重复计算，按人数计算
 
         uv : 计算uv，在去重时，子项上钻需要将去重字段叠加到一起再去重。
 
-    <3> 其他人想做指标，先查一遍
+    <3> hadoop 常用指令
+
+        hadoop fs -get /user/map_da/map_bi/XXXXX/xxxx.sh   ###hdfs下载文件
+        hadoop fs -put   xxxx.sh    /user/map_da/map_bi/XXXXX/    ####上传本地文件至hdfs
+        hadoop fs -rm  /user/map_da/map_bi/XXXXX/xxxx.sh    ####删除远端hdfs文件
+        hadoop fs -cat /user/map_da/map_bi/XXXXX/xxxx.sh   ###预览hdfs文件
+        hadoop fs -mkdir /user/map_da/map_bi/XXXXX/dir    ###hdfs上新建目录
+        hadoop fs -ls /user/map_da/map_bi/XXXXX/dir   ###查看hdfs目录信息
+        hadoop fs -du -h /user/map_da/map_bi/XXXXX/dir   ###查看hdfs目录下文件大小
+
+    <4> 问题优先排序法PQM模型
