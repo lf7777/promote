@@ -1,21 +1,15 @@
 一. Hadoop 概 念 :
 
-
     HDFS : Hadoop Distributed File System hadoop分布式文件系统
-
     MapReduce : 分布式并行计算系统
 
 
-
 二. jdk 安 装 和 配 置 :
-    
 
     Mac 配置jdk目录网址 : 
-
         https://www.cnblogs.com/grimm/p/11896246.html
 
     其中配置 .bash_profile 
-
          vim .bash_profile 
 
          JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home
@@ -29,18 +23,31 @@
 三. ssh 配 置 :
 
         在Mac OS X 10.10.5学习hadoop的过程中，输入命令ssh localhost得到
-        
         ssh: connect to host localhost port 22: Connection refused
-
         解决方法是选择系统偏好设置->选择共享->点击远程登录
-
         然后再输入命令ssh localhost发现已经解决问题
 
 
 四. hadoop 环 境 变 量 :
 
-
     vim .bash_profile
 
     export HADOOP_HOME=/Users/didi/app/hadoop-3.1.4
     export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+五. HiveSql
+
+一. 查 询 语 句 :
+
+    1. 展示表的所有分区
+            show partitions table_name;
+
+    2. 显示所有函数
+        show functions;
+
+
+一. 表 操 作 语 句 :
+
+    1. 查询数据并写入 table_name 表里
+        insert overtable table table_name partition (dt = '${BIZ_DATE}')
+        此处是select语句
