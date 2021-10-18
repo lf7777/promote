@@ -793,7 +793,7 @@
             percentile(A:A,20%)  (直接写百分比，不用加引号)
 
 
-二.2. Mysql 
+三.2. Mysql 
     
 
     <1> to_date() 
@@ -952,7 +952,7 @@
         order by field desc 
 
 
-二.3. Python 
+三.3. Python 
 
 
     <1>Series.value_counts()
@@ -1083,8 +1083,45 @@ warnings.filterwarnings('ignore')
          set(a).intersection(set(b)) intersection只能对集合进行操作
 
 
-二.4. hive
+三.4. hive
 
+    Hive基本知识
+        
+        使用sql语句执行MapReduce任务
+        Hive数据仓库工具能将结构化的数据映射为一张数据库表，并提供Sql查询功能，将HiveSql语句通过转换器转变为MapReduce任务提交到Hadoop集群上
+
+        应用特点 :
+            1.高延迟
+            2.离线
+            3.通过修改Hive配置，才可以进行数据的修改
+            4.支持创建索引，优化查询速度
+
+        用户接口 :
+            1.CLI 最常用的是Cli，Cli启动的时候，会同时启动一个hive副本
+            2.Client是hive的客户端，用户连接至hive server。在启动Client模式的时候，需要指出hive server所在的节点，并且在该节点启动hive server。
+            3.WUI是通过浏览器访问hive
+
+        解释器、编译器、优化器、执行器 :
+            分别完成Hive查询语句从词法分析、语法分析、编译、优化以及查询计划的生成。生成的查询计划存储在hdfs中，并在随后由MapReduce调用执行
+
+        常用任务语句 ：
+            drop table if exists ada_zhuhai_bus_qrcode_card;
+            create table ada_zhuhai_bus_qrcode_card as
+            select
+            ...
+            ;
+
+    语法 :
+
+        <1> status = 1
+            
+           示例 : select name,status = 1 '是否开启' from table; 
+
+                  结果会创建新的字段，若原字段为1，是否开启字段的值是1。若不为1，是否开启字段的值是0
+
+    函数 :
+        
+        <1>
 
     <1> 去重计数
 
@@ -1218,6 +1255,12 @@ warnings.filterwarnings('ignore')
                    )
        SELECT *
        FROM t1, t2;
+
+    <21> str_to_map
+        
+         str_to_map(text[, delimiter1, delimiter2])
+         将字符串转换为map 第一个参数是需要转换字符串，第二个参数是键值对之间的分隔符，默认为逗号;第三个参数是键值之间的分隔符，默认为"="str_to_map(string, string, string)
+         return: map
 
 
 
@@ -1412,3 +1455,5 @@ warnings.filterwarnings('ignore')
     <3> CRM 客户关系管理
 
         Customer Relationship Management
+
+p=1634142750||speed=13.45||tts=右
