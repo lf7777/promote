@@ -466,6 +466,13 @@
 
         <1> 指标体系 : 全面反应业务目标，全面监测业务基本情况。
 
+            step 1 = 金字塔式分解为多个主题，并用合适的指标量化主题
+
+            基本作用 :
+                1.支持快速监控
+                2.定位原因
+                3.归因问题
+
         <2> 自定义指标 : 能体现业务的目的
             
             (1) 相对值指标
@@ -524,19 +531,14 @@
     8. 其他
  
         <1> 幸存者偏差
-
             通过幸存下来的人得到的结论，是有偏差的，因为其忽略了大多数人
-
             幸存者偏差是一个概念，说明了我们不能只通过片面的样本得到结论，是存在偏差的
 
         <2> 马太效应
-
             指强者愈强、弱者愈弱、好的愈好，坏的愈坏，多的愈多，少的愈少的现象，广泛应用于社会心理学、教育、金融以及科学等众多领域。
             
         <3> 什么数据可用? 
-
                 数据的可用性可以从数据的一致性、准确性、完整性、时效性及实体同一性五个方面进行考察
-
             一致性 : 相关的数据之间可以对的上
             准确性 : 数据可以精确表示现实物体，人们对数据的操作不会影响数据的准确性
             完整性 : 数据集合包含的数据可以满足之后的所有需求，数据完整不丢失，不冗余(不重复)
@@ -704,105 +706,74 @@
         =DATE(LEFT(A2,4),MID(A2,5,2),RIGHT(A2,2))
 
     <2> 生成随机数
-
         =rand()
         默认是 0 ~ 1 之间的随机数
         =rand()*100
 
     <3> 总体方差 : varp(单元格:单元格)
-
         总体标准差 : stdevp(单元格:单元格)
         样本方差 : var()
         样本标准差 : stdev()
         变异系数(消除量纲影响) : stdevp/mean
 
     <4> 中位数
-
         median()
 
     <5> 众数
-
         mode()
 
     <6> 偏度系数
-    
         skew()
 
     <7> 峰度系数
-
         kurt()
 
     <8> 协方差
-
         样本 : sample     covariance.s()
-
         总体 : population covariance.p()
 
     <9> 看数据分布
-
         选择数据插入里选择数据透视图 -> 轴 值 均选择该列数据 -> 将值更改为计数 -> 完成
 
    <10> 相关系数
-
         correl(array1,array2)
 
    <11> 拼接两个日期
-
         =TEXT(A1,"y/m/d-")&"-"&TEXT(B1,"y/m/d")
 
    <12> 频率分布直方图
-
-        1.需要两列数据 列1 : 用于分段的数 例如 5 10 15 20 25 30
-
-                     列2 : 数据源，并非已经求好的频数，例如 1 22 17 13 25 29 29 30 30 30 11 11 12 12
-
+        1.需要两列数据  列1 : 用于分段的数 例如 5 10 15 20 25 30
+                        列2 : 数据源，并非已经求好的频数，例如 1 22 17 13 25 29 29 30 30 30 11 11 12 12
         2. 数据 > 数据分析 > 直方图 > 输入数据为数据源列，接收区域为分段列，勾选标志(作用是可以带入字段名字)及图标输出
-
            注意 : 不能选中一整列，要直接选中数据，
 
         如何选择组 :
             根据想关注区间来确定如何分组分组
             不能使用最大值最小值四分位数等来作为划分的依据，这种方式划分的数据为等份的，不同组的频数是相同的
 
-
    <13> 二项分布概率计算 :
-
         =BinomDist(success,all_time,p,cul)
-
         =BinomDist(成功次数，实验次数，成功概率，0概率密度，1累计概率密度)
 
    <14> 回归方程 :
-
         散点图，右键点击图中的点添加趋势线，选中显示公式
 
    <15> skew() 偏度 e
-
         <0 左偏分布 >0 右偏分布
-
         kurt() 峰度
-
         <0 扁平分布 >0 尖峰分布
-
         在实际分析中，通常将峰度与偏度结合使用，来判断变量的次数分布是否接近正态分布，或与正态分布的差别。
 
    <16> covariance.p() 总体协方差 后跟.s是样本协方差
-
         当>0 存在正的线性关系，即正相关，x增大y也增大
-
         当<0 存在负的线性关系，即负相关，x增大y会减小
-
         当~=0 x和y之间无线性关系，二者无关系
 
    <17> 求分位数
-
         四分位置 :
-
             上 : =QUARTILE(A:A,1)  
-
             下 : =QUARTILE(A:A,3)  
-
         其他分位 :
-
             percentile(A:A,20%)  (直接写百分比，不用加引号)
 
 
@@ -810,57 +781,39 @@
     
 
     <1> to_date() 
-
         转换为日期格式
 
     <1>.2 datediff(date1,date2)
-
         参数1<参数2，负值
-
         参数1>参数2，正值
 
     <2> mysql 获取json里的数据
-
         json_extract(字段,'.$键')
 
     <3> replace(field,willbe_replace,will_replace)
-
         mysql 字符串替换
 
     <4> -e 导出数据
 
         mysql -hxx -uxx -pxx -e "query statement" db > file 
-
         　　-h：后面跟的是链接的host（主机）
-
         　　-u:后面跟的是用户名
-
         　　-p:后面跟的是密码
-
         　　db:你要查询的数据库
-
         　　file:你要写入的文件，绝对路径
-
         示例 : mysql -h127.0.0.1 -uroot -p123 -e "select * from edu_iclass_areas" test > /Users/zhengcanrui/WORK/test/test.xls
-
         乱码问题解决 :
-
         mysql  --default-character-set=gbk -uroot -p   -D open_fusion -e  " select * from table1  "  > /home/apprun/test.xls
-
         Mac 下乱码 使用--def...=gbk
         
     <5> group by case when end
-
         end 后不能带 字段，但是如果想把group by 后面case when 出来的新字段，添加进select后面，直接在select后加case when ... when 和group by 相同的即可
 
     <6> ifnull()
-    
         查询的字段如果有空值，把空值转换为第二个值
-
         mysql:ifnull(field,为空的话返回这个值)
 
     <7> where 与 having 的区别
-
         where 是对表本身进行筛选,约束的数据库里有的东西
         having是对查询出来的数据进行筛选,约束的查询结果中的东西
 
@@ -868,23 +821,15 @@
         having是一个过滤声明；在查询返回结果集以后，对查询结果进行的过滤操作；在having中可以使用聚合函数。
 
     <8> if函数
-
         if(条件判断语句，true结果,false结果)
-
         例如 :
-
             count(distinct(if(sid>60,sid,null))) 统计sid,false的不会被统计到，标准格式，false的值只有在写null时不会统计其他的。
 
     <9> strcmp函数
-
         strcmp(str,str) or strcmp(field,field) 若是field时，一一比较每行的两个值，返回多个 0 or 1 or -1
-
         解释 : 若二参数完全相同，返回0
-            
                若第一个长度小于第二个,返回-1
-             
                其他情况，均返回1
-
         比较两个字符串，如果两个字符串相等，则返回0；如果根据当前的排序顺序，第一个参数小于第二个参数，则返回-1，否则返回1。
 
    <10> 连续3天发生购买的用户(或留存)
@@ -894,57 +839,40 @@
         DATEDIFF(c.orderdate,b.orderdate)=1;
 
    <11> sql中null与‘’的区别
-
-            null表示空，用is null判断
-
-            ''表示空字符串，用=''判断
+        null表示空，用is null判断
+        ''表示空字符串，用=''判断
 
    <12> mysql建表设置字符集
-
         ; 前添加 character set utf8;
 
    <13> 排序 MySQL
-
         order by field desc (注意添加order by 并且注意顺序)
 
    <14> count
-
         count(1),count(field) 不统计Null值
-
         count(*) 会统计到Null值
 
    <15> union union all
-
         union 去重 union all 为所有
-
         一个查询语句 但是需要筛选出条件不同的时，用union 与 union all
-
         union时会去除重复值，union all合并不去重
  
    <16> 遇到group by 问题
-
         set sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
   
    <17> round()
-
         小数位数，round(10.0000000,4) 保留4位
 
    <18> coalesce(ex1,ex2)
-
         当ex1为空时，返回ex2，不为空返回ex1
-   
         coalesce(attrs['pub_page_id'],attrs['page_id']) in ('buslinepage','transferpage','stationinfo')
 
    <19> 窗口函数 
-
         rank()  rank:等级
-
         dense_rank() dense rank:密级
-
         row_number() row number:行号
 
    <20> cast 类型转换函数
-
         select cast(datetime as time) from a;
 
         Cast(字段名 as 转换的类型 )，其中类型可以为：
@@ -957,11 +885,8 @@
         TIME 时间型
 
    <21> order by 
-
         默认升序
-
         desc 降序 
-
         order by field desc 
 
 
@@ -969,49 +894,33 @@
 
 
     <1>Series.value_counts()
-
         统计一列数据中不同数据出现的次数
-
         a = pd.Series(d21_accident_sw_list).value_counts()
 
     <2> join
-
         列表合并为字符串
-
         a = [1,2,3,4]
-
         '_'.join(a)
 
     <3> split
-
         字符串分割为列表
-
         a = '1_2_3_4'
-
         a.split('_',1)  #1为切割一次
 
     <4> pow()
-
         python平方函数
-
         pow(x,y) x的y次方
 
     <5> factorial
-
         阶乘函数
-
         import math 
-
         math.factorial(3)
 
     <6> 排序不改变原列表
-
         sorted([3,2,1])
 
     <7> python 词云分析
-
         pip install wordcloud
-
         简单英文词云示例 :
 
             with open('./note','r') as fr:
@@ -1075,8 +984,7 @@ warnings.filterwarnings('ignore')
         pccs = pearsonr(pct_chg, vol)
         print(pccs[0])
 
-   <11> python绘制三维图表
-
+    <11> python绘制三维图表
         from mpl_toolkits.mplot3d import Axes3D
         import matplotlib.pyplot as plt
         fig = plt.figure()
@@ -1085,15 +993,12 @@ warnings.filterwarnings('ignore')
         ax.legend()
         plt.show()
 
-   <12> 时间区间 pandas 
-
+    <12> 时间区间 pandas 
         dat = pd.date_range(start='1/04/2021', end='16/05/2021', freq='D')
-        
         freq : 两个时间的间隔，D是一天，M是一个月。
 
     <13> 交集等
-
-         set(a).intersection(set(b)) intersection只能对集合进行操作
+        set(a).intersection(set(b)) intersection只能对集合进行操作
 
 
 三.4. hive
@@ -1127,137 +1032,92 @@ warnings.filterwarnings('ignore')
     语法 :
 
         <1> status = 1
-            
            示例 : select name,status = 1 '是否开启' from table; 
-
                   结果会创建新的字段，若原字段为1，是否开启字段的值是1。若不为1，是否开启字段的值是0
 
     函数 :
         
-        <1>
-
     <1> 去重计数
-
         count(distinct field)去重并计数
-
         应该选择使用 count(*) from ... where field is not null
 
     <2> 字段不为空
-
         is not null
 
     <3> hive 获取json里的数据
-    
         get_json_object(字段,'.$键')
 
     <4> from_unixtime(field,'yyyy-MM-dd HH:mm:ss')
         时间戳转为日期时间格式,可以只转为日期，不加后面的时间
-
         20210909 转 2021-09-09 :
         select from_unixtime(unix_timestamp('20171205','yyyymmdd'),'yyyy-mm-dd');
     
     <5> date_sub 时间向前偏移函数
-
         参数 : 日期,偏移天数
-
         示例 : date_sub(current_date,1) 
-
                表向前偏移一天,昨天，可用
                 
     <6> date_add 时间向偏移函数
-
         参数 : 日期,偏移天数 
-
         示例 : date_add(current_date,1)
-
                表向后偏移一天i,明天 
 
     <7> current_date 获取当前日期
-        
         或 curdate()
-
         hivesql示例 : date_sub(current_date,7)  即可获取时间偏移
-
         为当前时间，日期时间格式 FROM_UNIXTIME(UNIX_TIMESTAMP())
 
     <8> size 
-
         得到数组的长度(元素个数)
 
     <9> split(field,str)
-
         参数:字段,以什么分割
 
    <10> { [ 需要 \\转义
-
         " 需要 \ 转义
 
    <11> substr
-
         截图字符串
-
         substr(str,int,int)
-
         哪里开始截，第一位是1，从哪开始截就是几
 
    <12> substr('2020-09-25 19:02:28',6,2);
-
         从日期时间，可以直接截取到字符串
-
         或者 month(date('2020-09-25 19:02:28'))
 
    <13> hive 替换字符串
-   
         regexp_replace(poiname,'，','_')
-
         汉子英文均可以
 
    <14> 时间戳转日期
-
         转为固定格式 :
-
-        from_unixtime(create_time,'yyyy-MM-dd HH:mm:ss'),
-
+            from_unixtime(create_time,'yyyy-MM-dd HH:mm:ss'),
         转为具体到分秒的格式 :
-
-        from_unixtime(create_time)
+            from_unixtime(create_time)
 
    <15> nvl
-
         查询的字段如果有空值，把空值转换为第二个值
-
         nvl(field,为空的话返回这个值)
 
    <16> <>
-
         不等于，与 != 相当
 
    <17> union 
-
         一个查询语句 但是需要筛选出条件不同的时，用union 与 union all
 
    <18> group_concat()
-
         mysql 分组合并值
-
             group_concat(要被合并的字段) ... group by 以谁为分组
-
         分组合并后去重 及 设置分隔符
-
             group_concat(distinct ... SEPARATOR ';') ... group by ...
-
         排序(不能和分隔符共同存在)
-
             group_concat(distinct ... desc) ... group by ...
 
    <19> 20200405 转 '2020-04-05'
-
         concat(substr(dt,1,4),'-',substr(dt,5,2),'-',substr(dt,7,2))
 
    <20> 视图(Hive,Oracle,Sql Server支持，Mysql不支持)
-
         临时视图表，减少重复sql代码
-
         WITH t1 AS (
                     SELECT *
                     FROM carinfo
@@ -1277,86 +1137,66 @@ warnings.filterwarnings('ignore')
 
 
 
-三.1. 互联网
+四.1. 互联网
 
 
     1. 职位
 
         <1> 研发
-        
             (1) BD 
-
                 业务拓展和商务发展
 
             (2) SDE 
-
                 高级软件开发工程师
 
             (3) RD
-
                 研发工程师
-
                 开发分工程与策略，工程搭建技术框架，提供服务。策略迭代算法。
 
         <2> 测试
-        
             (1)SDET
-
                 软件测试开发工程师
 
             (2) QA 
-
                 Quality Assurance
-
                 质量把控
 
         <3> 产品
-        
             (1) PM
-
                 项目经理
 
         <4> 数据
-        
             (1) DSI 
-
                 Data Science Intellgence
-
                 数据科学与智能
 
         <5> 运营
-        
             (1) BP
-
                 business partnter 业务合作伙伴
-
 
     2. 工具
 
         <1> PRD 与 DRD (同是需求文档) 
-
             PRD : PRD是产品需求文档，描述了该产品的大方向。 - 产品大方向
-
             DRD : DRD是交互设计文档，用来承载交互说明，并交付给前端、测试以及开发工程师参考的文档。- 产品细节
 
 
     3. 概念
-
         <1> B端、C端 
-
             Consumer 个人用户端  To C
-
             Business 商家用户端  To B
 
         <2> O2O 
- 
             Online To Offline 线上到线下
-
             O2O闭环，用户从线上到线下，最后再回到线上，只有这样，O2O才成为真正的O2O，而不是单纯的广告平台或分类信息提供者
 
 
-        
-四.1.1 开发
+
+四.2 电子商务
+
+
+
+五.1 开发
 
 
     <1> API 
@@ -1398,61 +1238,52 @@ warnings.filterwarnings('ignore')
         还可以 收集用户体验的数据与指标，获得用户的意见反馈，完善产品功能，提升产品质量。
 
 
-四.2. 英 文 
+五.2. 英 文 
 
     
     1. 数据分析英文
         
         <1> outliers
-
             异常值
 
         <2> insight 
-
             洞察
 
     2. 互联网常用英文
     
         <1> banner 
-
             广告横幅
 
 
-四.3. Mac 
+五.3 Mac 
 
 
      1. 常用指令
         
         <1> Mac brew 安装
-
             https://www.cnblogs.com/x1you/p/12506405.html
 
         <2> uname -a
-
             查看操作系统的版本
 
         <3> 查看文件的版本  
-
             file 文件
 
 
-四.4. 疑问 
+五.4 疑问 
 
 
     <1> 权重如何分配
 
 
-四.4.5 其 他 
+五.5 其 他 
 
 
     <1> 人次
-
         一个人多次会重复计算，按次数计算
 
         人数
-
         一个人不重复计算，按人数计算
-
         uv : 计算uv，在去重时，子项上钻需要将去重字段叠加到一起再去重。
 
     <2> hadoop 常用指令
@@ -1466,7 +1297,4 @@ warnings.filterwarnings('ignore')
         hadoop fs -du -h /user/map_da/map_bi/XXXXX/dir   ###查看hdfs目录下文件大小
 
     <3> CRM 客户关系管理
-
         Customer Relationship Management
-
-p=1634142750||speed=13.45||tts=右
