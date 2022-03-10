@@ -1071,6 +1071,17 @@ warnings.filterwarnings('ignore')
     <13> 交集等
         set(a).intersection(set(b)) intersection只能对集合进行操作
 
+    <14> reset_index(name='')
+            
+            zzz.groupby(0)[1].count().reset_index(name="count")
+
+            为聚合结果赋予列名，方便操作
+
+    <15> 指定多列排序
+        
+        (注意：对Worthy列升序，再对Price列降序)，ascending不指定的话，默认是True升序
+        lists.sort_values(by=["Worthy","Price"],inplace=True,ascending=[True,False])
+
 
 三.4. hive
 
