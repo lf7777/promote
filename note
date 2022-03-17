@@ -1004,6 +1004,11 @@ anyan
             plt.imshow(wordcloud, interpolation='bilinear')
             plt.axis("off")
 
+    <8> python统计字符串里每个字符出现的次数
+
+        >>> string = 'hello world'
+        >>> { a:st.count(a) for a in set(st.replace(' ','')) }
+
 <8> Jupyter
 
 #显示所有列
@@ -1081,6 +1086,14 @@ warnings.filterwarnings('ignore')
         
         (注意：对Worthy列升序，再对Price列降序)，ascending不指定的话，默认是True升序
         lists.sort_values(by=["Worthy","Price"],inplace=True,ascending=[True,False])
+
+    <16> 查看缺失值
+
+         df.isnull().sum().sort_values(ascending=False)
+
+    <17> 删除重复的数据
+        
+         df.drop_duplicates(subset=[],keep="first",inplace=True)
 
 
 三.4. hive
