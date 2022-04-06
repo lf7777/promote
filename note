@@ -1047,10 +1047,15 @@ pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 #设置value的显示长度为100，默认为50
 pd.set_option('max_colwidth',100)
-
 #忽略错误
 import warnings
 warnings.filterwarnings('ignore')
+
+matplotlib 图中文字乱码问题
+windows:
+plt.rcParams['font.sans-serif']=['SimHei'] 用正常中文显示标签
+mac:
+plt.rcParams["font.sans-serif"]=["Arial Unicode MS"]
 
     <9> python频率分布柱状图
 
