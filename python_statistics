@@ -1,0 +1,9 @@
+# python 统计分析 简便代码
+
+1.时间序列统计分析
+20220123 转为 2022 或 202201 格式，用来统计量根据时间变化的趋势
+new = tra["购买时间"].apply(lambda x : str(x)[0:4])
+new = pd.DataFrame(new)
+new.columns=["年"]
+tra = pd.concat([tra,new],axis=1)
+total = pd.DataFrame(tra.groupby(["年月"])["购买数量"].sum())
