@@ -1059,6 +1059,32 @@
         desc 降序 
         order by field desc 
 
+   <22> join 
+
+        1.join | inner join  内连接
+
+          取交集 
+
+        2.left join 左连接(左外连接)
+            
+          左表全部数据，右表没有用null补充 | 左表独自拥有的和交集
+
+        3.right join 右连接(右外连接)
+
+          右表全部数据，左表没有用null补充 | 右表独自拥有的和交集 
+
+        4.left join b.field is null 左表独有
+
+          A表独自拥有的
+
+        5.right join a.field is null 右表独有
+
+          B表独自拥有的
+
+        6.全连接(全外连接)
+
+          left join union right
+
 
 三.3. Python 
 
